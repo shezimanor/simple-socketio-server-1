@@ -11,6 +11,10 @@
     <script>
       // socket: Client Socket
       const socket = io();
+      socket.on('connect', () => {
+        // socket: Server Socket
+        console.log(`A new user connected with id: ${socket.id}`);
+      });
     </script>
   </body>
 </html>
