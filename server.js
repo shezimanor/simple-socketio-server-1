@@ -30,10 +30,12 @@ io.on('connection', (socket) => {
   });
 
   // 註冊事件: send_user_info
-  socket.on('send_user_info', (userInfo) => {
+  socket.on('send_user_info', (userInfo, callback) => {
     console.log(`伺服器收到來自[${socket.id}]的 "send_user_info"：${userInfo}`);
     // 加入新的 user
     users[`${socket.id}`] = userInfo;
     console.log('Now users: ', users);
+    // callback: 讓 client side 確認 server side 已經收到並回應了，發送確認訊息給 client
+    callback('Server has responded!');
   });
 });
