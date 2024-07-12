@@ -44,5 +44,9 @@ io.on('connection', (socket) => {
     console.log('The timeout event');
     // 把下面這行註解掉，timeout 後就會顯示錯誤
     callback('Server has responded! [timeout-event]');
+    // （或是用 setTimeout 超過 timeout 後再回傳也可以造成錯誤）
+    // setTimeout(() => {
+    //   callback('Server has responded! [timeout-event]');
+    // }, 5000);
   });
 });
