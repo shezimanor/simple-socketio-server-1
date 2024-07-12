@@ -20,4 +20,7 @@ io.on('connection', (socket) => {
     // 觸發事件（這兩個 message 互不相關）
     socket.emit('message', `我得到你的訊息了，訊息是「${msg}」`);
   });
+  socket.on('greeting', (msg) => {
+    console.log(`伺服器收到來自[${socket.id}]的 "greeting"：「${msg}」`);
+  });
 });
