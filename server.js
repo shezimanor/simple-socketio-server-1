@@ -29,13 +29,20 @@ io.on('connection', (socket) => {
     console.log(`伺服器收到來自[${socket.id}]的 "greeting"：「${msg}」`);
   });
 
-  // 註冊事件: send_user_info
-  socket.on('send_user_info', (userInfo, callback) => {
-    console.log(`伺服器收到來自[${socket.id}]的 "send_user_info"：${userInfo}`);
+  // 註冊事件: send-user-info
+  socket.on('send-user-info', (userInfo, callback) => {
+    console.log(`伺服器收到來自[${socket.id}]的 "send-user-info"：${userInfo}`);
     // 加入新的 user
     users[`${socket.id}`] = userInfo;
     console.log('Now users: ', users);
     // callback: 讓 client side 確認 server side 已經收到並回應了，發送確認訊息給 client
-    callback('Server has responded!');
+    callback('Server has responded! [send-user-info]');
+  });
+
+  // 註冊事件: timeout-event
+  socket.on('timeout-event', (callback) => {
+    console.log('The timeout event');
+    // 把下面這行註解掉，timeout 後就會顯示錯誤
+    callback('Server has responded! [timeout-event]');
   });
 });
