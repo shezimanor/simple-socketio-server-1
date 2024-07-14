@@ -49,4 +49,10 @@ io.on('connection', (socket) => {
     //   callback('Server has responded! [timeout-event]');
     // }, 5000);
   });
+
+  // 註冊事件: ping
+  socket.on('ping', (pingCount) => {
+    console.log(socket.id);
+    console.log('pingCount: ', pingCount);
+  });
 });
