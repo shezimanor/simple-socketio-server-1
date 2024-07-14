@@ -14,6 +14,19 @@ const users = {};
 io.on('connection', (socket) => {
   // socket: Server Socket
   console.log(`A new user connected with id: ${socket.id}`);
+  // 觸發事件: boardcast event 1
+  // It broadcast the event to every other connected clients except for the one who emitted the event. (觸發事件的 client 不會收到這個事件)
+  socket.broadcast.emit(
+    'message',
+    'Attention please! This is a broadcast! A new user join us now!'
+  );
+  // 觸發事件: boardcast event 2
+  // It broadcast the event to every other connected clients, including the one who emitted the event. (觸發事件的 client 也會收到這個事件)
+  io.emit(
+    'message',
+    'Attention please! This is a broadcast! A new user join us now! And them will see this message!'
+  );
+
   // 觸發事件
   socket.emit('message', 'Welcome My SocketIO universe!');
 
@@ -48,11 +61,5 @@ io.on('connection', (socket) => {
     // setTimeout(() => {
     //   callback('Server has responded! [timeout-event]');
     // }, 5000);
-  });
-
-  // 註冊事件: ping
-  socket.on('ping', (pingCount) => {
-    console.log(socket.id);
-    console.log('pingCount: ', pingCount);
   });
 });
