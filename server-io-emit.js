@@ -12,7 +12,9 @@ const io = new Server(port, {
 const users = {};
 
 io.on('connection', (socket) => {
-  socket.once('one-time-event', () => {
-    console.log('Once');
+  socket.on('user-score', (userScore) => {
+    users[`${socket.id}`] = userScore;
+    // boardcast all clients
+    io.emit('user-score', users);
   });
 });
