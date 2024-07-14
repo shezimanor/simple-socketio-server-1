@@ -14,6 +14,9 @@ const users = {};
 io.on('connection', (socket) => {
   // socket: Server Socket
   console.log(`A new user connected with id: ${socket.id}`);
+  socket.onAny((event, ...args) => {
+    console.log(`An event happened with the name: ${event} and args: ${args}`);
+  });
   // 觸發事件: boardcast event 1
   // It broadcast the event to every other connected clients except for the one who emitted the event. (觸發事件的 client 不會收到這個事件)
   socket.broadcast.emit(
