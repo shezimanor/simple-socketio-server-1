@@ -9,31 +9,13 @@ const io = new Server(port, {
   }
 });
 
-io.on('connection', (socket) => {
-  // socket: Server Socket
-  console.log(`A new user connected with id: ${socket.id}`);
+// io.of('/')
+io.on('connection', () => {
+  console.log('Connected to the home route namespace');
+});
 
-  // 註冊事件
-  socket.on('join-gold', () => {
-    // 加入房間 `gold`
-    socket.join('gold');
-    console.log(io.sockets.adapter.rooms);
-    console.log('Room gold: ', io.sockets.adapter.rooms['gold']);
-  });
+const chatNameSpace = io.of('/chat');
 
-  // 註冊事件
-  socket.on('join-silver', () => {
-    // 加入房間 `silver`
-    socket.join('silver');
-    console.log(io.sockets.adapter.rooms);
-    console.log('Room silver: ', io.sockets.adapter.rooms['silver']);
-  });
-
-  // 註冊事件
-  socket.on('join-bronze', () => {
-    // 加入房間 `bronze`
-    socket.join('bronze');
-    console.log(io.sockets.adapter.rooms);
-    console.log('Room bronze: ', io.sockets.adapter.rooms['bronze']);
-  });
+chatNameSpace.on('connection', () => {
+  console.log('Connected to chat namespace');
 });
