@@ -70,4 +70,20 @@ io.on('connection', (socket) => {
   socket.on('cancel-all-events', () => {
     socket.removeAllListeners();
   });
+
+  // 註冊事件: get-items
+  socket.on('get-items', async (callback) => {
+    try {
+      // 模擬錯誤
+      const items = await findItems();
+      callback({
+        status: 'OK',
+        items
+      });
+    } catch (e) {
+      callback({
+        status: 'Error'
+      });
+    }
+  });
 });
